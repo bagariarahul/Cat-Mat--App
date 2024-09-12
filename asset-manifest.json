@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Cat-Mat-App/static/css/main.ef9504d9.css",
+    "main.js": "/Cat-Mat-App/static/js/main.1416f511.js",
+    "static/js/453.788478a2.chunk.js": "/Cat-Mat-App/static/js/453.788478a2.chunk.js",
+    "index.html": "/Cat-Mat-App/index.html",
+    "main.ef9504d9.css.map": "/Cat-Mat-App/static/css/main.ef9504d9.css.map",
+    "main.1416f511.js.map": "/Cat-Mat-App/static/js/main.1416f511.js.map",
+    "453.788478a2.chunk.js.map": "/Cat-Mat-App/static/js/453.788478a2.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ef9504d9.css",
+    "static/js/main.1416f511.js"
+  ]
+}
