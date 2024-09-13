@@ -60,7 +60,6 @@ const App = () => {
     setResult(null);
     generateNumbers();
   };
-  
 
   const stopGame = () => {
     setIsRunning(false);
@@ -70,21 +69,18 @@ const App = () => {
     document.activeElement.blur();
   };
 
-const nextQu = () => {
-  setResult(`Skipped. ${number1} ${operationSign} ${number2} = ${correctAnswer}`);
-  setUserAnswer(''); // Clear the input field
-  generateNumbers(); // Generate new numbers for the next round
-  setRemainingTime(time); // Reset the time
-
-  // Keep the input field focused to keep the keypad open
-  const inputField = document.querySelector('.answer-input');
-  if (inputField) {
-    inputField.focus();
-  }
-
-  // Scroll the page to the top to keep the result message in view
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-};
+  const nextQu = () => {
+    setResult(`Skipped. ${number1} ${operationSign} ${number2} = ${correctAnswer}`);
+    setUserAnswer(''); // Clear the input field
+    generateNumbers(); // Generate new numbers if the answer is correct
+    setRemainingTime(time); // Reset time for the next round
+    
+    // Keep the input focused to keep the keyboard open
+    const inputField = document.querySelector('.answer-input');
+    if (inputField) {
+      inputField.focus();
+    }
+  };
 
   const checkAnswer = () => {
     if (parseFloat(userAnswer) === correctAnswer) {
