@@ -6,6 +6,7 @@ const App = () => {
   const [digits1, setDigits1] = useState(1); // Digits for first number
   const [digits2, setDigits2] = useState(1); // Digits for second number
   const [operation, setOperation] = useState('add'); // Operation (add, subtract, multiply, divide)
+  const [operationSign, setOperationSign] = useState('add'); 
   const [number1, setNumber1] = useState(0);
   const [number2, setNumber2] = useState(0);
   const [userAnswer, setUserAnswer] = useState('');
@@ -25,10 +26,14 @@ const App = () => {
 
   const calculateAnswer = () => {
     let answer = 0;
-    if (operation === 'add') answer = number1 + number2;
-    else if (operation === 'subtract') answer = number1 - number2;
-    else if (operation === 'multiply') answer = number1 * number2;
-    else if (operation === 'divide') answer = parseFloat((number1 / number2).toFixed(2)); // Limit decimals
+    if (operation === 'add') {
+      answer = number1 + number2;
+      setOperationSign('+');
+
+    }
+    else if (operation === 'subtract') {answer = number1 - number2;setOperationSign('-');}
+    else if (operation === 'multiply') {answer = number1 * number2;setOperationSign('*');}
+    else if (operation === 'divide') {answer = parseFloat((number1 / number2).toFixed(2));setOperationSign('/');} // Limit decimals
     setCorrectAnswer(answer);
   };
 
@@ -55,6 +60,13 @@ const App = () => {
     setIsRunning(false);
     setResult(null); // Clear result when stopped
   };
+  const nextQu = () => {
+    setResult(`Skipped.${number1} ${operationSign} ${number2} = ${correctAnswer}`);
+    setUserAnswer(''); // Clear the input field
+      generateNumbers(); // Generate new numbers if the answer is correct
+      setRemainingTime(time); // Reset time for the next round
+  };
+
 
   const checkAnswer = () => {
     if (parseFloat(userAnswer) === correctAnswer) {
