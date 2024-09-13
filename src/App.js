@@ -133,6 +133,7 @@ const App = () => {
 
       <button onClick={startGame} disabled={isRunning} className="btn btn-start">Start</button>
       <button onClick={stopGame} disabled={!isRunning} className="btn btn-stop">Stop</button>
+      <button onClick={nextQu} disabled={!isRunning} className="btn btn-stop">Next</button>
 
       {isRunning && (
         <div>
