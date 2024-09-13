@@ -61,7 +61,7 @@ const App = () => {
     setResult(null); // Clear result when stopped
   };
   const nextQu = () => {
-    setResult(`Skipped.${number1} ${operationSign} ${number2} = ${correctAnswer}`);
+    setResult(`Skipped. ${number1} ${operationSign} ${number2} = ${correctAnswer}`);
     setUserAnswer(''); // Clear the input field
       generateNumbers(); // Generate new numbers if the answer is correct
       setRemainingTime(time); // Reset time for the next round
