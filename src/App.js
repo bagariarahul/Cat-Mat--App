@@ -2,18 +2,18 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 
 const App = () => {
-  const [time, setTime] = useState(10); // Time limit in seconds
-  const [digits1, setDigits1] = useState(1); // Digits for first number
-  const [digits2, setDigits2] = useState(1); // Digits for second number
-  const [operation, setOperation] = useState('add'); // Operation (add, subtract, multiply, divide)
-  const [operationSign, setOperationSign] = useState('add'); 
+  const [time, setTime] = useState(10);
+  const [digits1, setDigits1] = useState(1);
+  const [digits2, setDigits2] = useState(1);
+  const [operation, setOperation] = useState('add');
+  const [operationSign, setOperationSign] = useState('add');
   const [number1, setNumber1] = useState(0);
   const [number2, setNumber2] = useState(0);
   const [userAnswer, setUserAnswer] = useState('');
   const [result, setResult] = useState(null);
-  const [isRunning, setIsRunning] = useState(false); // Game running state
-  const [remainingTime, setRemainingTime] = useState(time); // Remaining time
-  const [correctAnswer, setCorrectAnswer] = useState(null); // Store the correct answer for checking
+  const [isRunning, setIsRunning] = useState(false);
+  const [remainingTime, setRemainingTime] = useState(time);
+  const [correctAnswer, setCorrectAnswer] = useState(null);
 
   const generateNumbers = () => {
     const min1 = Math.pow(10, digits1 - 1);
@@ -29,11 +29,16 @@ const App = () => {
     if (operation === 'add') {
       answer = number1 + number2;
       setOperationSign('+');
-
+    } else if (operation === 'subtract') {
+      answer = number1 - number2;
+      setOperationSign('-');
+    } else if (operation === 'multiply') {
+      answer = number1 * number2;
+      setOperationSign('*');
+    } else if (operation === 'divide') {
+      answer = parseFloat((number1 / number2).toFixed(2));
+      setOperationSign('/');
     }
-    else if (operation === 'subtract') {answer = number1 - number2;setOperationSign('-');}
-    else if (operation === 'multiply') {answer = number1 * number2;setOperationSign('*');}
-    else if (operation === 'divide') {answer = parseFloat((number1 / number2).toFixed(2));setOperationSign('/');} // Limit decimals
     setCorrectAnswer(answer);
   };
 
@@ -58,27 +63,27 @@ const App = () => {
 
   const stopGame = () => {
     setIsRunning(false);
-    setResult(null); // Clear result when stopped
-  };
-  const nextQu = () => {
-    setResult(`Skipped. ${number1} ${operationSign} ${number2} = ${correctAnswer}`);
-    setUserAnswer(''); // Clear the input field
-      generateNumbers(); // Generate new numbers if the answer is correct
-      setRemainingTime(time); // Reset time for the next round
+    setResult(null);
   };
 
+  const nextQu = () => {
+    setResult(`Skipped. ${number1} ${operationSign} ${number2} = ${correctAnswer}`);
+    setUserAnswer('');
+    generateNumbers();
+    setRemainingTime(time);
+  };
 
   const checkAnswer = () => {
     if (parseFloat(userAnswer) === correctAnswer) {
       setResult('Correct!');
-      setUserAnswer(''); // Clear the input field
-      generateNumbers(); // Generate new numbers if the answer is correct
-      setRemainingTime(time); // Reset time for the next round
+      setUserAnswer('');
+      generateNumbers();
+      setRemainingTime(time);
     } else {
       setResult(`Incorrect. The correct answer is ${correctAnswer}`);
-      setIsRunning(true); // Restart if the answer is incorrect
-      setUserAnswer(''); // Clear the input field
-      setRemainingTime(time); // Reset the timer
+      setIsRunning(true);
+      setUserAnswer('');
+      setRemainingTime(time);
     }
   };
 
@@ -87,12 +92,12 @@ const App = () => {
       const timer = setInterval(() => {
         setRemainingTime((prev) => prev - 1);
       }, 1000);
-      return () => clearInterval(timer); // Clean up the interval on component unmount or change
+      return () => clearInterval(timer);
     } else if (remainingTime === 0) {
       setResult(`Time's up! The correct answer was ${correctAnswer}. Try again.`);
-      generateNumbers(); // Restart the game after time runs out
-      setRemainingTime(time); // Reset the timer
-      setUserAnswer(''); // Clear the input field
+      generateNumbers();
+      setRemainingTime(time);
+      setUserAnswer('');
     }
   }, [isRunning, remainingTime]);
 
@@ -138,19 +143,22 @@ const App = () => {
       {isRunning && (
         <div>
           <p className="question">
-            {number1} {operation === 'add' ? '+' : operation === 'subtract' ? '-' : operation === 'multiply' ? '*' : '/'}{' '}
-            {number2}
+            {number1} {operationSign} {number2}
           </p>
           <p className="timer">Time Remaining: {remainingTime} seconds</p>
 
+          {/* Use numeric input for mobile */}
           <input
-            type="text"
+            type="number"
             value={userAnswer}
             onChange={(e) => setUserAnswer(e.target.value)}
             onKeyPress={handleKeyPress}
             placeholder="Enter your answer"
             className="answer-input"
+            pattern="[0-9]*"
+            inputMode="numeric"
           />
+
           <button onClick={checkAnswer} className="btn btn-submit">Submit Answer</button>
 
           {result && <p className="result-message">{result}</p>}
