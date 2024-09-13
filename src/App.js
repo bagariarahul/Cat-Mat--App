@@ -71,9 +71,15 @@ const App = () => {
 
   const nextQu = () => {
     setResult(`Skipped. ${number1} ${operationSign} ${number2} = ${correctAnswer}`);
-    setUserAnswer(''); 
-    generateNumbers(); 
-    setRemainingTime(time); 
+    setUserAnswer(''); // Clear the input field
+    generateNumbers(); // Generate new numbers if the answer is correct
+    setRemainingTime(time); // Reset time for the next round
+    
+    // Keep the input focused to keep the keyboard open
+    const inputField = document.querySelector('.answer-input');
+    if (inputField) {
+      inputField.focus();
+    }
   };
 
   const checkAnswer = () => {
