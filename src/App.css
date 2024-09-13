@@ -94,11 +94,16 @@ button:disabled {
 }
 
 .result-message {
-  text-align: center;
-  font-size: 18px;
-  margin-top: 20px;
-  color: #e0e0e0;
+  position: fixed;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #f9f9f9;
+  padding: 10px;
+  border-radius: 5px;
+  z-index: 1000;
 }
+
 
 /* Responsive Design */
 @media (max-width: 600px) {
