@@ -6,7 +6,7 @@ const App = () => {
   const [digits1, setDigits1] = useState(1);
   const [digits2, setDigits2] = useState(1);
   const [operation, setOperation] = useState('add');
-  const [operationSign, setOperationSign] = useState('add');
+  const [operationSign, setOperationSign] = useState('add'); 
   const [number1, setNumber1] = useState(0);
   const [number2, setNumber2] = useState(0);
   const [userAnswer, setUserAnswer] = useState('');
@@ -63,27 +63,30 @@ const App = () => {
 
   const stopGame = () => {
     setIsRunning(false);
-    setResult(null);
+    setResult(null); // Clear result when stopped
+    setUserAnswer(''); // Clear input
+    // Close the numpad when the game is stopped
+    document.activeElement.blur();
   };
 
   const nextQu = () => {
     setResult(`Skipped. ${number1} ${operationSign} ${number2} = ${correctAnswer}`);
-    setUserAnswer('');
-    generateNumbers();
-    setRemainingTime(time);
+    setUserAnswer(''); 
+    generateNumbers(); 
+    setRemainingTime(time); 
   };
 
   const checkAnswer = () => {
     if (parseFloat(userAnswer) === correctAnswer) {
       setResult('Correct!');
-      setUserAnswer('');
-      generateNumbers();
+      setUserAnswer(''); 
+      generateNumbers(); 
       setRemainingTime(time);
     } else {
       setResult(`Incorrect. The correct answer is ${correctAnswer}`);
-      setIsRunning(true);
-      setUserAnswer('');
-      setRemainingTime(time);
+      setIsRunning(true); 
+      setUserAnswer(''); 
+      setRemainingTime(time); 
     }
   };
 
@@ -92,12 +95,12 @@ const App = () => {
       const timer = setInterval(() => {
         setRemainingTime((prev) => prev - 1);
       }, 1000);
-      return () => clearInterval(timer);
+      return () => clearInterval(timer); 
     } else if (remainingTime === 0) {
       setResult(`Time's up! The correct answer was ${correctAnswer}. Try again.`);
-      generateNumbers();
-      setRemainingTime(time);
-      setUserAnswer('');
+      generateNumbers(); 
+      setRemainingTime(time); 
+      setUserAnswer(''); 
     }
   }, [isRunning, remainingTime]);
 
@@ -143,22 +146,19 @@ const App = () => {
       {isRunning && (
         <div>
           <p className="question">
-            {number1} {operationSign} {number2}
+            {number1} {operation === 'add' ? '+' : operation === 'subtract' ? '-' : operation === 'multiply' ? '*' : '/'}{' '}
+            {number2}
           </p>
           <p className="timer">Time Remaining: {remainingTime} seconds</p>
 
-          {/* Use numeric input for mobile */}
           <input
-            type="number"
+            type="tel" // This triggers the numpad on mobile devices
             value={userAnswer}
             onChange={(e) => setUserAnswer(e.target.value)}
             onKeyPress={handleKeyPress}
             placeholder="Enter your answer"
             className="answer-input"
-            pattern="[0-9]*"
-            inputMode="numeric"
           />
-
           <button onClick={checkAnswer} className="btn btn-submit">Submit Answer</button>
 
           {result && <p className="result-message">{result}</p>}
