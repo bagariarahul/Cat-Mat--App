@@ -165,7 +165,7 @@ const App = () => {
             placeholder="Enter your answer"
             className="answer-input"
           />
-          <button onClick={checkAnswer} className="btn btn-submit">Submit Answer</button>
+         
 
           {result && <p className="result-message">{result}</p>}
         </div>
