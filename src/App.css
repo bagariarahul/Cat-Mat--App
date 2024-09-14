@@ -99,6 +99,32 @@ button:disabled {
   margin-top: 20px;
   color: #e0e0e0;
 }
+.calculation-display {
+  display: inline-block;
+  text-align: right; /* Align everything to the right */
+  margin: 20px 0;
+}
+
+.number {
+  font-size: 2em;
+  margin: 5px 0;
+}
+
+.operation-second-number {
+  display: flex;
+  justify-content: flex-end; /* Align operator and second number to the right */
+}
+
+.operation-sign {
+  font-size: 2em;
+  margin-right: 10px; /* Space between operator and second number */
+}
+
+.horizontal-line {
+  border: 0;
+  border-top: 2px solid black;
+  margin: 10px 0;
+}
 
 
 /* Responsive Design */

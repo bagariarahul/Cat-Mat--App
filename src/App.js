@@ -151,10 +151,17 @@ const App = () => {
 
       {isRunning && (
         <div>
-          <p className="question">
-            {number1} {operation === 'add' ? '+' : operation === 'subtract' ? '-' : operation === 'multiply' ? '*' : '/'}{' '}
-            {number2}
-          </p>
+        {isRunning && (
+   <div className="calculation-display">
+   <p className="number">{number1}</p>
+   <div className="operation-second-number">
+     <span className="operation-sign">{operation === 'add' ? '+' : operation === 'subtract' ? '-' : operation === 'multiply' ? '*' : '/'}</span>
+     <span className="number">{number2}</span>
+   </div>
+   <hr className="horizontal-line" />
+ </div>
+)}
+
           <p className="timer">Time Remaining: {remainingTime} seconds</p>
 
           <input
